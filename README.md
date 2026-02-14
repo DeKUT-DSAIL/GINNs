@@ -7,6 +7,7 @@ Example:
 This repository contains code for analyzing data related to lfp battery RUL and SoH prediction. The analysis supports findings presented in the paper:  
 *"Paper Title"* submitted to *Batteries by MDPI*.  
 
+#fix this code... 
 ## Requirements  
 
     Code structure
