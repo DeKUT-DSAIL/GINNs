@@ -7,7 +7,7 @@ The code and analysis in this repository support the findings presented in the p
 *"RUL Prediction in LFP Batteries: Comparison of Gompertz, LSTM, and Gompertz-Informed LSTM Models for Interpretability and Accuracy"* submitted to *Batteries by MDPI*.
 
 ## Repository Structure
-Below is the organizational structure of the codebase:
+Below is the organizational structure of the codebase [generated using project tree](https://project-tree-generator.netlify.app/generate-tree):
 
 ```text
 gi-lstms/
