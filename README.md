@@ -71,7 +71,8 @@ To run the notebooks and scripts in this repository, you will need Python instal
 * `pandas`
 * `numpy`
 * `scikit-learn`
-* `matplotlib` / `seaborn`
+* `matplotlib`
+* `seaborn`
 
 To install all required dependencies, run:
 ```bash
