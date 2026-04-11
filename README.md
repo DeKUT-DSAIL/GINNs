@@ -1,158 +1,113 @@
-# Gompertz-Informed LSTMs for LFP Battery Health Estimation 
+# RUL Prediction in LFP Batteries: Comparison of Gompertz, LSTM, and Gompertz-Informed LSTM Models for Interpreta-bility and Accuracy 
 
-## Description  
-Provide a brief but informative description of your project.  
+## Description
+This repository contains the codebase and analysis for predicting the Remaining Useful Life (RUL) and State of Health (SoH) of Lithium Iron Phosphate (LFP) batteries. The project evaluates the trade-off between the predictive accuracy of purely data-driven black-box models (LSTMs) and the physical interpretability of empirical models (the Gompertz function). It introduces hybrid gray-box architectures known as Gompertz-Informed LSTMs (GILSTMs) designed to constrain predictions to follow physical laws of battery degradation.
 
-Example:  
-This repository contains code for analyzing data related to lfp battery RUL and SoH prediction. The analysis supports findings presented in the paper:  
-*"Paper Title"* submitted to *Batteries by MDPI*.  
+The code and analysis in this repository support the findings presented in the paper:
+*"RUL Prediction in LFP Batteries: Comparison of Gompertz, LSTM, and Gompertz-Informed LSTM Models for Interpretability and Accuracy"* submitted to *Batteries by MDPI*.
 
-#fix this code... 
-## Requirements  
+## Repository Structure
+Below is the organizational structure of the codebase:
 
-    Code structure
-            Battery-Gompertz-Informed-Neural-Networks
-            │
-            ├── README.md             # The most important file (Documentation)
-            ├── LICENSE               # Usage rights (MIT, Apache 2.0, etc.)
-            ├── .gitignore            # Files to exclude from version control (e.g., large data)
-            ├── requirements.txt      # Python dependencies (or environment.yml)
-            │
-            ├── data/                 # Data files (inputs)
-            │   ├── raw/              # Original, immutable data dump
-            │   ├── processed/        # Cleaned data used for modeling
-            │   └── external/         # Data from third party sources
-            │
-            ├── src/                  # Source code (The "Engine")
-            │   ├── __init__.py       # Makes this a Python module
-            │   ├── data_loader.py    # Scripts to ingest and clean data
-            │   ├── models.py         # Architecture definitions (e.g., Neural Net classes)
-            │   └── train.py          # Training loops / Simulation scripts
-            |   └── SoC-calculation.py   # Calculate State of Charge  per cycle  from current and time
-            |   └── SoH-calculation.py   # Calculate State of Health  per cycle  from max and min SoC
-            │
-            ├── notebooks/            # Jupyter notebooks (Exploration & Figures)
-            │   ├── 01_eda.ipynb      # Exploratory Data Analysis
-            │   └── 02_figures.ipynb  # Code to generate specific paper figures
-            │
-            ├── results/              # Model outputs (outputs)
-            │   ├── models/           # Saved model checkpoints (.pth, .h5)
-            │   └── figures/          # Generated PNG/PDFs matching the paper
-            │
-            └── tests/                # Unit tests to ensure code validity
-
-
-
-### BatteryML Code Structure
-    Code structure
-        batteryml/
-        │
-        ├── bin/                    # Data cycler loaders (ARBIN, NEWARE), SoH tools, CLI utilities
-        ├── configs/                # Model + pipeline configs
-        ├── image/                  # Benchmark result images
-        │
-        ├── baseline.ipynb          # Baseline modeling pipeline
-        ├── result.ipynb            # Benchmark result display
-        ├── soh_example.ipynb       # SoH example usage
-        │
-        ├── dataprepare.md          # Data preparation instructions
-        ├── README.md               # Project documentation
-        ├── requirements.txt        # Dependencies
-        ├── setup.py                # Install/CLI configuration
-        │
-        ├── CODE_OF_CONDUCT.md
-        ├── SECURITY.md
-        ├── LICENSE
-        ├── .gitignore
-        └── .flake8
-
-
-# More details 
-    ├─ .flake8                 # Flake8 linting config
-    ├─ .gitignore              # Git ignore patterns
-    ├─ CODE_OF_CONDUCT.md      # Community guidelines
-    ├─ LICENSE                 # Project license
-    ├─ README.md               # Overview and usage
-    ├─ SECURITY.md             # Security/reporting policy
-    ├─ setup.py                # Packaging and CLI setup
-    ├─ requirements.txt        # Python dependency list
-    ├─ dataprepare.md          # Data preparation guide
-    ├─ run_all_rul_baseline.sh # Run all RUL baseline experiments
-    ├─ baseline.ipynb          # Baseline modeling workflow
-    ├─ result.ipynb            # Benchmark visualization
-    ├─ soh_example.ipynb       # State-of-Health example
-    ├─ image/                  # Documentation graphics
-    │  ├─ Logo_RGB.png
-    │  ├─ framework.png
-    │  └─ framework_new.png
-    ├─ configs/                # Experiment/model configs
-    │  ├─ baselines/           # Baseline configs
-    │  ├─ cyclers/             # Device/cycler configs
-    │  └─ soh/                 # SoH experiment configs
-    ├─ bin/                    # CLI scripts
-    │  ├─ __init__.py
-    │  └─ batteryml.py         # Main CLI entry
-    └─ batteryml/              # Core Python package
-       ├─ __init__.py
-       ├─ builders.py          # Model/pipeline builders
-       ├─ pipeline.py          # Pipeline orchestration
-       ├─ task.py              # Task runners/definitions
-       ├─ data/                # Data loaders/parsers
-       ├─ feature/             # Feature engineering
-       ├─ label/               # Label generation (RUL/SoH)
-       ├─ models/              # Model implementations
-       ├─ preprocess/          # Preprocessing utilities
-       ├─ train_test_split/    # Dataset splitting logic
-       ├─ utils/               # Shared utilities
-       └─ visualization/       # Plotting tools
-
-
-List dependencies or link to a `requirements.txt` file.  
-
-Example:  
-To run this project, install the required dependencies using:  
+```text
+gi-lstms/
+├── .gitattributes
+├── .gitignore
+├── current-plots/
+│   └── 1-1-current-plot.png
+├── data/
+│   └── external/
+│       └── HUST/
+│           └── 1-1.pkl.zip            # Raw HUST battery dataset files
+├── LICENSE.txt                        # Usage rights
+├── main/                              # Core execution files and saved results
+│   ├── GILSTM_1_rmse_results.pkl
+│   ├── GILSTM_2_rmse_results.pkl
+│   ├── GILSTM_3_rmse_results.pkl
+│   ├── gompertz_results.pkl
+│   ├── gompertz_rmse_results.pkl
+│   ├── hust_rmse_results.ipynb
+│   ├── hust-ginn-data-pipeline.ipynb      # Main data processing pipeline
+│   ├── hust-ginn-modelling-pipeline.ipynb # Main model training/testing pipeline
+│   ├── models/                            # Saved model weights (.pth)
+│   ├── SOH_to_RUL_rmse_results.pkl
+│   ├── SOH_to_SoH_RUL_rmse_results.pkl
+│   └── unified_gompertz.pkl
+├── notebooks/                         # Experimental & modeling notebooks
+│   ├── 01_eda.ipynb                   # Exploratory Data Analysis
+│   ├── train-nb-4-pytorch-soh-to-kab-parameters-lstm_cycle_to_cycle.ipynb
+│   ├── train-nb-4-pytorch-soh-to-kab-parameters-lstm-2-losses.ipynb
+│   ├── train-nb-4-pytorch-soh-to-kab-parameters-lstm.ipynb
+│   ├── train-nb-4-pytorch-soh-to-rul-lstm.ipynb
+│   └── train-nb-4-pytorch-soh-to-soh-lstm.ipynb
+├── raw-code/                          # Initial data extraction scripts
+│   ├── huazhong-ust-li-battery-data-extraction.ipynb
+│   ├── hust-battery-data-acquisition.ipynb
+│   └── plot-gompertz-parameters.ipynb
+├── README.md                          # Project documentation
+├── requirements.txt                   # Python dependencies
+├── results/                           # Generated plots and CSV summaries
+│   ├── capacity-fade-cno-plot/
+│   ├── capacity-fade-time-plot/
+│   ├── csv-summary/
+│   ├── current-plots/
+│   ├── plots/
+│   └── SoH-cno-plot/
+└── src/                               # Source code modules
+    ├── __init__.py
+    ├── data_loader.py
+    ├── models.py
+    ├── SoC-calculation-HUST.py
+    ├── SoC-calculation-MATR.py
+    ├── SoH-calculation-HUST.py
+    ├── SoH-calculation-MATR.py
+    └── train.py
 ```
+
+## Requirements
+To run the notebooks and scripts in this repository, you will need Python installed along with the packages specified in the requirements file. Core dependencies include frameworks for deep learning and data manipulation:
+
+* `torch` (PyTorch)
+* `pandas`
+* `numpy`
+* `scikit-learn`
+* `matplotlib` / `seaborn`
+
+To install all required dependencies, run:
+```bash
 pip install -r requirements.txt
 ```
 
-or 
+## Installation and Usage
 
-Alternatively, list required packages:
+Follow these steps to set up the environment and run the core pipelines:
 
-    -numpy
-    -pandas
-    -torch
-    -scikit-learn
-    
-## Installation/Usage
-Provide step-by-step instructions to set up and use the project.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/DeKUT-DSAIL/gi-lstms.git
+   cd gi-lstms
+   ```
 
-Example:
-```
-# Clone the repository
-git clone https://github.com/DeKUT-DSAIL/GINNs.git
+2. **Install the required packages:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Navigate to the project directory
-cd GINNs
-
-# Install dependencies
-pip install -r requirements.txt  
-
-# Run the main script
-python main.py  
-```
+3. **Run the core pipelines:**
+   The primary workflow is divided into two main Jupyter Notebooks located in the `main/` directory. Open and run them sequentially:
+   * **Data Preparation:** Open `main/hust-ginn-data-pipeline.ipynb` to process the raw HUST data, calculate SoC/SoH, and extract the Gompertz parameters.
+   * **Modeling & Inference:** Open `main/hust-ginn-modelling-pipeline.ipynb` to train the LSTMs and GILSTMs, and to evaluate their performance on RUL prediction.
 
 ## Data Access
 
-Gompertz parameters dataset...
+* **Raw Battery Data:** The original Huazhong University of Science and Technology (HUST) battery dataset used in this study is openly available on Mendeley Data at: [https://data.mendeley.com/datasets/nsc7hnsg4s/2](https://data.mendeley.com/datasets/nsc7hnsg4s/2)
+* **Gompertz Parameters Dataset:** The generated derivative data, including calculated Gompertz parameters (k, a, b), is available within this repository.
+* **Further Access:** If you require specific processed data partitions not included in the repository, please contact `yuri.njathi@dkut.ac.ke`.
 
-    Public Data: Link to dataset
-    Request Access: Contact yuri.njathi@dkut.ac.ke to obtain the dataset.
-    
 ## Citation
 
 If you use this repository, please cite:
-```
+```bibtex
 @article{yourcitation2025,
   author = {Author Name, Co-Author Name},
   title = {Your Paper Title},
@@ -162,11 +117,9 @@ If you use this repository, please cite:
   pages = {XX-XX},
   doi = {XX.XXXXX/journal.xxxxxx}
 }
-
 ```
+
 ## Acknowledgements
+This work was conducted as part of the Artificial Intelligence for Development (AI4D) program, with the financial support of the UK government’s Foreign, Commonwealth, and Development Office (FCDO) and Canada’s International Development Research Centre (IDRC). 
 
-Thank contributors, funding sources, or supporting organizations.
-
-Example:
-We acknowledge the support of [Institution Name] and funding from [Grant Name]. Special thanks to contributors and collaborators for their valuable input.
+We appreciate the support from Arm and Google.org to the Centre for Data Science and Artificial Intelligence (DSAIL). This work was also supported by a grant from the Swiss National Supercomputing Centre (CSCS) under project ID g164 on Alps. Additional computational resources for modeling and benchmarking results were obtained through Kaggle.
