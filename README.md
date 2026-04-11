@@ -30,11 +30,25 @@ gi-lstms/
 │   ├── hust-ginn-data-pipeline.ipynb      # Main data processing pipeline
 │   ├── hust-ginn-modelling-pipeline.ipynb # Main model training/testing pipeline
 │   ├── models/                            # Saved model weights (.pth)
+│   │   ├── best_lstm_model-window-100_model_pinn_data_all_cycle_to_cycle.pth
+│   │   ├── best_moe_model_window_100.pth
+│   │   ├── SoH-to-kab-best_lstm_model-window-100_model_pinn_data_all.pth
+│   │   ├── SoH-to-kab-best_lstm_model-window-100_model_pinn_data_high.pth
+│   │   ├── SoH-to-kab-best_lstm_model-window-100_model_pinn_data_low.pth
+│   │   ├── SoH-to-kab-best_lstm_model-window-100_model_pinn_data_mid.pth
+│   │   ├── SoH-to-RUL-best_lstm_model-window-100.pth
+│   │   ├── SoH-to-SoH-best_lstm_model-window-100.pth
+│   │   ├── SoH-to-SoH-best_lstm_model-window-100v0.pth
+│   │   └── SoH-to-SoH-best_lstm_model-window-100v1.pth
 │   ├── SOH_to_RUL_rmse_results.pkl
 │   ├── SOH_to_SoH_RUL_rmse_results.pkl
 │   └── unified_gompertz.pkl
 ├── notebooks/                         # Experimental & modeling notebooks
 │   ├── 01_eda.ipynb                   # Exploratory Data Analysis
+│   ├── ablation-study.ipynb           # Ablation study analysis
+│   ├── battery-operationability.ipynb # Operationalization insights
+│   ├── hust-ginn-data-pipeline.ipynb
+│   ├── hust-ginn-modelling-pipeline.ipynb
 │   ├── train-nb-4-pytorch-soh-to-kab-parameters-lstm_cycle_to_cycle.ipynb
 │   ├── train-nb-4-pytorch-soh-to-kab-parameters-lstm-2-losses.ipynb
 │   ├── train-nb-4-pytorch-soh-to-kab-parameters-lstm.ipynb
@@ -48,11 +62,20 @@ gi-lstms/
 ├── requirements.txt                   # Python dependencies
 ├── results/                           # Generated plots and CSV summaries
 │   ├── capacity-fade-cno-plot/
+│   │   └── 1-1.png
 │   ├── capacity-fade-time-plot/
+│   │   └── 1-1.png
 │   ├── csv-summary/
+│   │   └── 1-1.csv
+│   ├── csvs/
+│   │   └── 1-1.csv
 │   ├── current-plots/
+│   │   └── 1-1-current-plot.png
 │   ├── plots/
+│   │   ├── 1-1-first-10-plot.png
+│   │   └── 1-1-full-plot.png
 │   └── SoH-cno-plot/
+│       └── 1-1.png
 └── src/                               # Source code modules
     ├── __init__.py
     ├── data_loader.py
