@@ -1,4 +1,4 @@
-# RUL Prediction in LFP Batteries: Comparison of Gompertz, LSTM, and Gompertz-Informed LSTM Models for Interpreta-bility and Accuracy 
+# RUL Prediction in LFP Batteries: Comparison of Gompertz, LSTM, and Gompertz-Informed LSTM Models for Interpretability and Accuracy 
 
 ## Description
 This repository contains the codebase and analysis for predicting the Remaining Useful Life (RUL) and State of Health (SoH) of Lithium Iron Phosphate (LFP) batteries. The project evaluates the trade-off between the predictive accuracy of purely data-driven black-box models (LSTMs) and the physical interpretability of empirical models (the Gompertz function). It introduces hybrid gray-box architectures known as Gompertz-Informed LSTMs (GILSTMs) designed to constrain predictions to follow physical laws of battery degradation.
